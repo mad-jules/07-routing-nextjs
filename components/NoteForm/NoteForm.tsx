@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 
 interface NoteFormProps {
   onCancel: () => void;
+  defaultTag?: NoteTag;
 }
 
 interface NoteFormValues {
@@ -15,12 +16,6 @@ interface NoteFormValues {
   content: string;
   tag: NoteTag;
 }
-
-const initialValues: NoteFormValues = {
-  title: '',
-  content: '',
-  tag: 'Todo',
-};
 
 const tagValue: NoteTag[] = ['Work', 'Personal', 'Meeting', 'Shopping', 'Todo'];
 
@@ -33,7 +28,13 @@ const NoteFormSchema = Yup.object().shape({
   tag: Yup.string().required('Name is required').oneOf(tagValue),
 });
 
-export default function NoteForm({ onCancel }: NoteFormProps) {
+export default function NoteForm({ onCancel, defaultTag }: NoteFormProps) {
+  const initialValues: NoteFormValues = {
+    title: '',
+    content: '',
+    tag: defaultTag ?? 'Todo',
+  };
+
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationKey: ['notes'],

@@ -34,12 +34,14 @@ interface ApiGetNotesResponse {
 export async function fetchNote({
   search,
   page,
+  tag,
 }: fetchNoteProps): Promise<ApiGetNotesResponse> {
   const response = await NotesInstance.get<ApiGetNotesResponse>('/notes', {
     params: {
       search,
       page,
       perPage: 12,
+      tag,
     },
   });
   return response.data;

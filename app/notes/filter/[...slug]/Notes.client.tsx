@@ -12,16 +12,22 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import { useDebouncedCallback } from 'use-debounce';
 import { Loader } from '@/components/Loader/Loader';
+import { NoteTag } from '@/types/note';
+import Error from './error';
 
-export default function Notes() {
+interface NotesProps {
+  tag: NoteTag | undefined;
+}
+
+export default function Notes({ tag }: NotesProps) {
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data, isFetching, isSuccess } = useQuery({
-    queryKey: ['notes', search, page],
+  const { data, isFetching, isSuccess, isError, error } = useQuery({
+    queryKey: ['notes', search, page, tag],
     queryFn: () => {
-      return fetchNote({ page, search });
+      return fetchNote({ page, search, tag });
     },
     placeholderData: keepPreviousData,
   });
@@ -54,13 +60,14 @@ export default function Notes() {
       </header>
       <main>
         {isFetching && <Loader />}
+        {isError && <Error error={error} />}
         {data && data.notes.length === 0 && isSuccess && (
           <div>Notes not found</div>
         )}
         {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
         {isOpen && (
           <Modal onClose={handleOnClose}>
-            <NoteForm onCancel={handleOnClose} />
+            <NoteForm onCancel={handleOnClose} defaultTag={tag} />
           </Modal>
         )}
       </main>

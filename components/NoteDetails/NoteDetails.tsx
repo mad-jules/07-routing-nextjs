@@ -18,7 +18,13 @@ export default function NoteDetails({
           <h2>{title}</h2>
         </div>
         <p className={css.content}>{content}</p>
-        <p className={css.date}>{date}</p>
+        <p className={css.date}>
+          {new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </p>
       </div>
     </div>
   );

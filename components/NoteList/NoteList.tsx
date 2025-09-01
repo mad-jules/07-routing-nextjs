@@ -4,6 +4,7 @@ import type { Note } from '@/types/note';
 import css from './NoteList.module.css';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface NoteListProps {
   notes: Note[];
@@ -11,6 +12,7 @@ interface NoteListProps {
 
 export default function NoteList({ notes }: NoteListProps) {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const mutation = useMutation({
     mutationFn: (id: string) => deleteNote(id),
@@ -36,9 +38,14 @@ export default function NoteList({ notes }: NoteListProps) {
             <p className={css.content}>{note.content}</p>
             <div className={css.footer}>
               <span className={css.tag}>{note.tag}</span>
-              <Link className={css.link} href={`/notes/${note.id}`}>
+              <Link
+                className={css.link}
+                scroll={false}
+                href={`/notes/${note.id}`}
+              >
                 View details
               </Link>
+
               <button
                 onClick={() => handleDelete(note.id)}
                 className={css.button}

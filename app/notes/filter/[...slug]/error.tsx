@@ -7,7 +7,7 @@ interface ErrorProps {
 export default function Error({ error }: ErrorProps) {
   return (
     <div>
-      <p>Could not fetch the list of tasks. {error.message}</p>;
+      <p>Could not fetch the list of tasks. {error.message}</p>
     </div>
   );
 }

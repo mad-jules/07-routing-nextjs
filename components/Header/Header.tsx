@@ -1,5 +1,6 @@
 import css from '@/components/Header/Header.module.css';
 import Link from 'next/link';
+import TagsMenu from '../TagsMenu/TagsMenu';
 
 export default function Header() {
   return (
@@ -14,7 +15,7 @@ export default function Header() {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/notes">Notes</Link>
+              <TagsMenu />
             </li>
           </ul>
         </nav>
