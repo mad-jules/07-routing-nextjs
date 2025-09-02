@@ -21,7 +21,7 @@ export default function NoteDetailsClient() {
     refetchOnMount: false,
   });
 
-  if (isLoading) return <p>Loading, please wait...</p>;
+  if (isLoading) return <p className={css.text}>Loading, please wait...</p>;
 
   if (error || !note) return <p>Something went wrong.</p>;
 

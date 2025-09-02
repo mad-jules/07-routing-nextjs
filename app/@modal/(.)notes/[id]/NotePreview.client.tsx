@@ -13,7 +13,12 @@ export default function NotePreview() {
   };
 
   const { id } = useParams<{ id: string }>();
-  const { data: note, isLoading } = useQuery({
+  const {
+    data: note,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
@@ -21,7 +26,8 @@ export default function NotePreview() {
 
   return (
     <Modal onClose={handleClose}>
-      {isLoading && <p></p>}
+      {isLoading && <p className={css.text}>Loading...</p>}
+      {isError && <p>Something went wrong... {error.message}</p>}
       {note && (
         <div className={css.container}>
           <div className={css.item}>

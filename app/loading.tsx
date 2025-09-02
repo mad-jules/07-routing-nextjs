@@ -1,3 +1,3 @@
 export default function Loading() {
-  return <p>Loading, please wait...</p>;
+  return <p style={{ padding: '12px 16px' }}>Loading, please wait...</p>;
 }

@@ -67,3 +67,7 @@
   display: inline-block;
   background-color: transparent;
 }
+
+.text {
+  padding: 12px 16px;
+}
